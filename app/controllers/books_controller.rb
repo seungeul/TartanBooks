@@ -2,9 +2,10 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-  @books = Book.search(params[:search])
+    search = params[:search]
+  @books = Book.search(search)
   @query = ISBNdb::Query.new(["JX9ZYCQ6"])
-  @books = @query.find_books_by_title("Agile Development")
+  @booksfromISBN = @query.find_books_by_title(search)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @books }

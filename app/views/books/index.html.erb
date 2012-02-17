@@ -1,5 +1,6 @@
 <h1>Listing books</h1>
 
+<% #search input box and button %>
 <%= form_tag books_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
@@ -8,6 +9,7 @@
 <% end %>
 
 <table>
+<%	#table headings %>
   <tr>
     <th>Isbn</th>
     <th>Title</th>
@@ -19,6 +21,7 @@
     <th></th>
   </tr>
 
+<% #results from the database %>
 <% @books.each do |book| %>
   <tr>
     <td><%= book.isbn %></td>
@@ -26,8 +29,21 @@
     <td><%= book.author %></td>
     <td><%= book.year %></td>
     <td><%= book.publisher %></td>
+	<td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <td><%= link_to 'Destroy', book, confirm: 'Are you sure?', method: :delete %></td>
+<%end%>
 
-  </tr>
+	#results from ISBNdb.com
+<% @booksfromISBN.each do|booksfromISBN|%>
+	</tr>
+	<tr>
+	<td><%= booksfromISBN.isbn %></td>
+    <td><%= booksfromISBN.title %></td>
+    <td><%= booksfromISBN.authors_text %></td>
+    <td><%= booksfromISBN.year %></td>
+    <td><%= booksfromISBN.publisher_text %></td></tr>
+
 <% end %>
 </table>
 
